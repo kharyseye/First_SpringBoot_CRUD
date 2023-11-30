@@ -34,18 +34,6 @@ public class UserRestController {
         return "user_form";
     }
 
-    @GetMapping("/users/edit/{id}")
-    public String showEditForm(@PathVariable("id") Long id, Model model, RedirectAttributes ra) throws UserNotFoundException {
-        try {
-            User user = service.get(id);
-            model.addAttribute("user", user);
-            model.addAttribute("pageTitle", "EDITER UTILISATEUR");
-        } catch (UserNotFoundException e) {
-            ra.addFlashAttribute("message", "Utilisateur ajouté");
-            return "redirect:/users";
-        }
-
-    }
 
     @PostMapping("/users/save")
     public String saveUser(User user, RedirectAttributes ra) {
@@ -53,4 +41,30 @@ public class UserRestController {
         ra.addFlashAttribute("message", "Utilisateur ajouté");
         return "redirect:/users";
     }
+
+    @GetMapping("/users/edit/{id}")
+    public String showEditForm(@PathVariable("id") Long id, Model model, RedirectAttributes ra) throws UserNotFoundException {
+        try {
+            User user = service.get(id);
+            model.addAttribute("user", user);
+            model.addAttribute("pageTitle", "EDITER UTILISATEUR (ID :" + id + ")");
+            return "user_form";
+
+        } catch (UserNotFoundException e) {
+            ra.addFlashAttribute("message", e.getMessage());
+            return "redirect:/users";
+        }
+    }
+
+    @GetMapping("/users/delete/{id}")
+    public String deleteUser(@PathVariable("id") Long id, RedirectAttributes ra) throws UserNotFoundException {
+        try {
+            service.delete(id);
+            ra.addFlashAttribute("message", "Utilisateur ID " + id + " a été supprimé.");
+        } catch (UserNotFoundException e) {
+            ra.addFlashAttribute("message", e.getMessage());
+        }
+        return "redirect:/users";
+    }
+
 }

@@ -12,6 +12,7 @@
     </div>
     <form th:action="@{/users/save}" method="post" th:object="${user}"
           style="max-width: 500px; margin: 0 auto;">
+        <input type="hidden" th:field="*{id}">
         <div class="border border-secondary rounded p-3 mt-3">
             <div class="mb-3 ">
                 <label class="form-label">Nom</label>
