@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${pageTitle}]]</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="text-center">
+        <h2>[[${pageTitle}]]</h2>
+    </div>
+    <form th:action="@{/users/save}" method="post" th:object="${user}"
+          style="max-width: 500px; margin: 0 auto;">
+        <div class="border border-secondary rounded p-3 mt-3">
+            <div class="mb-3 ">
+                <label class="form-label">Nom</label>
+                <input type="text" class="form-control" th:field="*{nom}" required min="2" maxlength="20">
+                <div class="form-text"></div>
+            </div>
+            <div class="mb-3 ">
+                <label class="form-label">Prenom</label>
+                <input type="text" class="form-control" th:field="*{prenom}" required min="2" maxlength="50">
+                <div class="form-text"></div>
+            </div>
+            <div class="mb-3 ">
+                <label class="form-label">Email address</label>
+                <input type="email" class="form-control" th:field="*{email}" required min="12" maxlength="50">
+                <div class="form-text">Ne partagez jamais votre adresse mail</div>
+            </div>
+
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button type="submit" class="btn btn-outline-success">Ajouter</button>
+            </div>
+            <div class="d-grid gap-2 col-6 mx-auto mt-3">
+                <button type="submit" class="btn btn-outline-warning" onclick="cancelForm()">Annuler</button>
+            </div>
+
+        </div>
+
+    </form>
+</div>
+<script type="text/javascript">
+    function cancelForm(){
+        window.location = "[[@{/users}]]"
+    }
+</script>
+</body>
+</html>

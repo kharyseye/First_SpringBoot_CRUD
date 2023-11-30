@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste Utilisateurs</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container-fluid text-center">
+    <div>
+        <h2>LISTE DES UTILISATEURS</h2>
+    </div>
+    <div class="m-2">
+        <a class="h3" th:href="@{/users/new}">Ajouter un utilisateur</a>
+    </div>
+
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+
+    <div>
+        <table class="table">
+            <thead class="table-dark">
+                <th>ID</th>
+                <th>NOM</th>
+                <th>PRENOM</th>
+                <th>EMAIL</th>
+                <th>ACTION</th>
+            </thead>
+            <tbody>
+                <th:block th:each="user :${listUsers}">
+                    <tr>
+                        <td>[[${user.id}]]</td>
+                        <td>[[${user.nom}]]</td>
+                        <td>[[${user.prenom}]]</td>
+                        <td>[[${user.email}]]</td>
+                        <td>
+                           <a class="h5 mr-5" th:href="@{'/users/edit/' + ${user.id}}">Editer</a>
+                           <a class="h5" th:href="@{'/users/delete/' + ${user.id}}">Supprimer</a>
+                        </td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+</body>
+</html>
